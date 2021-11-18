@@ -10,14 +10,15 @@
     <p>This is my test page.</p>
 </body>
 <script>
-    function fetchAndDecode(url, type) {
+    function fetchAndDecode(url) {
         return fetch(url).then(response => {
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             } else {
-                if (type === 'blob') {
+                type = response.headers.get('content-type');
+                if (type.includes('image')) {
                     return response.blob();
-                } else if (type === 'text') {
+                } else if (type.includes('text')) {
                     return response.text();
                 }
             }
@@ -27,9 +28,9 @@
             });
     }
 
-    let coffee = fetchAndDecode('coffee.png', 'blob');
-    let tea = fetchAndDecode('tea.png', 'blob');
-    let description = fetchAndDecode('description.txt', 'text');
+    let coffee = fetchAndDecode('coffee.jpg');
+    let tea = fetchAndDecode('tea.jpg');
+    let description = fetchAndDecode('description.txt');
 
     Promise.all([coffee, tea, description]).then(values => {
         console.log(values);
