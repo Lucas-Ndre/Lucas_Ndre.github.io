@@ -1,27 +1,33 @@
 <!DOCTYPE html>
 <html lang="en-US">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <title>My test page</title>
-  </head>
-  <body>
+</head>
+
+<body>
     <p>This is my page</p>
-  </body>
-  <script>
-      let promise = fetch('coffee.jpg');
-      let promise2 = promise.then(response => {
-          if (!response.ok) {
-              throw new Error(`HTTP error : status ${response.status}`);
-          }
-          else {
-              return response.blob();
-          }
-      });
-      let promise3 = promise2.then(myBlob => {
-          let objectURL = URL.createObjectURL(myBlob);
-          let myImg = document.createElement('img');
-          myImg.src = objectURL;
-          document.body.appendChild(myImg);
-      })
-  </script>
+</body>
+<script>
+    let promise = fetch('coffdee.jpg');
+    let promise2 = promise.then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error : status ${response.status}`);
+        }
+        else {
+            return response.blob();
+        }
+    });
+    let promise3 = promise2.then(myBlob => {
+        let objectURL = URL.createObjectURL(myBlob);
+        let myImg = document.createElement('img');
+        myImg.src = objectURL;
+        document.body.appendChild(myImg);
+    })
+    let errorCase = promise3.catch(evt =>{
+        console.log('There has been a problem with your fetch operation : '+evt.message);
+    });
+</script>
+
 </html>
